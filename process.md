@@ -27,7 +27,7 @@ At the setup, Claude Code asks how large the project is and proposes the tools a
 
 ## Size a change
 
-At the start of each step, Claude Code says which tools the change needs, and why; the owner may add or remove one.
+At the start of each step, Claude Code says which tools the change needs, and why, and how many pull requests it expects; the owner may add or remove one. The expected number of pull requests is written with the step in `roadmap.md`, so that the retrospective can compare it with what happened.
 
 | Change | Tools |
 |---|---|
@@ -64,22 +64,24 @@ A fix that can't wait (a broken page online, a security alert, a wrong contact d
 An idea that needs trying before deciding (a 3D scene, a video for the launch, a new tool) is an exploration, not a step. It happens at any time: during a step, when a choice needs trying before it is made (on sylent.art, whether a 3D scene runs on a phone, during the mock-up); or between steps, from an idea of the backlog (the launch videos).
 
 1. A branch `explore/<short-description>`, or a page in the scratchpad: nothing of it is merged as it is.
-2. Bounded: the owner and Claude Code agree on what it must answer (« can a scene of 3D cubes run on a phone? »).
+2. Bounded twice: the owner and Claude Code agree on what it must answer, with a measure when there is one (« can a scene of 3D cubes run at 60 images per second on a mid-range phone? »), and on how long it may take (one session, two at most). When the time is up, it stops and the decision is taken with what is known: a question still open is an answer too.
 3. It ends with its result written down: during a step, the decision goes back to the step (and to `docs/`); otherwise a decision in `docs/` (kept or set aside, and why), an entry of the backlog, or a step of the roadmap that rebuilds it properly. The branch is then deleted, or kept with a line in the backlog that says why.
 
 ## The tools
 
+Each tool has a **done when**: a list of facts anyone can check, not an impression. When one of them can't be met (a text still waiting on the owner), the owner decides to go on anyway, and the gap is written in `roadmap.md` or in the backlog, never left unsaid.
+
 | Tool | Use it when | Output | Done when |
 |---|---|---|---|
-| [Start a project](#start-a-project) | Once, at the start | The repository from the template, its settings, the size of the project | `main` is protected and the setup pull request is merged. |
-| [Specifications](#specifications) | The site says or does something new | `specs.md`, the brand assets, the external services | The owner has answered the open questions and merged them. |
-| [Structure](#structure) | The content is grouped differently, the addresses change | The content tree in Excalidraw, the URLs in `specs.md` and `src/data/urls.json` | The owner has moved the cards and chosen a lead. |
-| [Wireframes](#wireframes) | A new page type, a new layout | `docs/wireframes/*.excalidraw` | The owner has edited and approved the layout. |
-| [Mock-up](#mock-up) | Any visual choice | `docs/mockups/*.html` | Every page and state looks right at every width, on the owner's phone too. |
-| [Design system](#design-system) | At the end of a mock-up, a new token | Tokens and decisions in `docs/branding.md` | Colors, sizes and typography are written as tokens. |
-| [Build](#build) | Always | One pull request per step | The step's box of `roadmap.md` is checked. |
-| [Launch](#launch) | The first cycle, a new domain or new addresses | Site on `github.io`, then on its domain | The owner has checked the site and switched the DNS. |
-| [Retrospective](#retrospective) | The end of a cycle, or a phase that went badly | Changes to this file, the templates and the backlog | The lessons are written down. |
+| [Start a project](#start-a-project) | Once, at the start | The repository from the template, its settings, the size of the project | `main` is protected, the size of the project is written in `roadmap.md`, and the setup pull request is merged with the CI green. |
+| [Specifications](#specifications) | The site says or does something new | `specs.md`, the brand assets, the external services | Every open question is answered; the site has its success criteria; every page it touches has its acceptance criteria; what is missing of the brand assets is listed with who provides it; the owner has merged them. |
+| [Structure](#structure) | The content is grouped differently, the addresses change | The content tree in Excalidraw, the URLs in `specs.md` and `src/data/urls.json` | The owner has moved the cards and chosen a lead; the parking area is empty (every item placed or sent to the backlog); every page has its URL and every former URL its page or redirect. |
+| [Wireframes](#wireframes) | A new page type, a new layout | `docs/wireframes/*.excalidraw` | The owner has approved every page type at phone and desktop width, with its states (open menu, form sent, form in error, not found). |
+| [Mock-up](#mock-up) | Any visual choice | `docs/mockups/*.html` | Every page type and state is shown at 360 px and at desktop width with the real content; the owner has looked at it on their phone; no open decision is left on the page; the owner has chosen. |
+| [Design system](#design-system) | At the end of a mock-up, a new token | Tokens and decisions in `docs/branding.md` | Every color, size and font of the mock-up is a named token; every text and background pair passes WCAG AA; the mock-up uses only these tokens. |
+| [Build](#build) | Always | One pull request per step | `npm run check` and the CI are green; the acceptance criteria of the step hold on the preview; the review notes the owner chose are applied; `specs.md` matches the site; the owner has looked at the preview on their phone; the step's box of `roadmap.md` is checked and the pull request merged. |
+| [Launch](#launch) | The first cycle, a new domain or new addresses | Site on `github.io`, then on its domain | The checks of [Launch](#launch) are done and their results written in `roadmap.md`; the domain serves the site over HTTPS; `www` and `github.io` redirect to it; every former URL resolves. |
+| [Retrospective](#retrospective) | The end of a cycle, or a phase that went badly | Changes to this file, the templates and the backlog | The success criteria are checked one by one; the planned and actual pull requests are compared; the backlog is sorted; each lesson is written where it applies (this file, `CLAUDE.md`, the templates). |
 
 ## Start a project
 
@@ -101,11 +103,13 @@ Goal: agree on **what** the site says and does before deciding **how**. For a ch
    - Which offers or contents, grouped how, with which details?
    - What is the main action of the visitor, and what happens after it?
    - Is there a former site, whose URLs must keep working?
+   - When is the site a success? Two or three facts the owner can check some weeks after the launch (« a visitor finds the price of a course in two clicks », « two contact requests a month come through the form », « the site comes first when searching for its name »).
 2. **Ask for the brand assets**, and record in `docs/branding.md` (Brand assets) what is given and what is missing: the logo (symbol and wordmark) on a dark and on a light background, in SVG if possible; a square icon for the favicon; the colors and fonts of an existing charter, with the license of each font; the photos and their rights; the logos of the partners or clients and the permission to show them; the public contact details and the legal information. The favicon and the preview card of the links are made from them (`npm run brand:images`).
 3. **Check the external services early** (GitHub Pages, and a form service or analytics if the site needs one): documentation, limits, terms of use, personal data, licenses of the images and fonts. Record the limits and every risk the owner accepts, with its date, in `docs/external-services.md`.
-4. Write `specs.md`: behavior and content only (what the visitor sees, what each action does, the URLs and redirects, edge cases).
-5. Confirm or adapt the technical choices of `docs/technical-choices.md`, with their reasons (and the alternatives rejected), then write the steps in `roadmap.md`, each small enough for one pull request. Choose only what the specifications need: the JavaScript libraries and the weight of script a page may carry wait for the mock-up (on sylent.art, « no JavaScript » was written before the mock-up and replaced after it by GSAP and Three.js).
-6. Open the pull request; the owner reads the files on GitHub (**Files changed**) or in VS Code.
+4. Write `specs.md`: behavior and content only (what the visitor sees, what each action does, the URLs and redirects, edge cases), the success criteria of the site, and its requirements: the budget of each page (e.g. under 500 KB on the first load, Lighthouse 90 or more on a phone for performance, accessibility and SEO) and the browsers it supports.
+5. Give each page type its **acceptance criteria**: what a visitor must be able to do or find on it, written so that anyone can check it on the preview (« from the home page, the contact form is one click away at phone width », « the form shows which field is wrong and keeps what was typed », « the page of an offer shows its price and its duration above the fold on a phone »). They are what the owner validates, and what the build checks on the preview; those a script can check become checks of `npm run check`.
+6. Confirm or adapt the technical choices of `docs/technical-choices.md`, with their reasons (and the alternatives rejected), then write the steps in `roadmap.md`, each small enough for one pull request. Choose only what the specifications need: the JavaScript libraries and the weight of script a page may carry wait for the mock-up (on sylent.art, « no JavaScript » was written before the mock-up and replaced after it by GSAP and Three.js).
+7. Open the pull request; the owner reads the files on GitHub (**Files changed**) or in VS Code.
 
 ## Structure
 
@@ -190,36 +194,40 @@ For each step of `roadmap.md`, in order:
 
 The owner looks at the preview on their phone after each page step, rather than all the pages at the end. When a bug reaches the owner that a check could have caught, the fix adds the check.
 
+Before the pull request of a page step, Claude Code goes through the acceptance criteria of the page on the built site, one by one, and says which ones a check of `npm run check` covers and which ones the owner must look at; a criterion a script could check but no check covers yet is added to the checks or to the backlog.
+
 ## Launch
 
 1. The owner checks every page on the `github.io` address, at phone and desktop width.
 2. The site is ready to share: not-found page, redirect pages, sitemap, `robots.txt`, favicon, Open Graph tags and the preview card, checked with the LinkedIn Post Inspector and the Facebook Sharing Debugger.
-3. The owner verifies the domain in their GitHub account (**Settings → Pages → Verified domains**, a TXT record). The custom domain field of the repository stays empty until the switch: filled earlier, it redirects the `github.io` preview to the old site.
-4. Claude Code checks that every former URL resolves and describes the DNS records to set (GitHub Pages `A` and `AAAA` on the apex, `www` as a CNAME to `<owner>.github.io.`); the owner lowers their TTL a day before, then changes the DNS (never Claude Code).
-5. Once the domain points to GitHub Pages: set the custom domain in the Pages settings, enforce HTTPS, delete the `SITE_URL` and `BASE_PATH` repository variables and run the deployment again, then check that `www` and `github.io` redirect to the domain.
-6. Submit the sitemap to the search engines (Google Search Console, Bing Webmaster Tools) if the owner wants to.
+3. The budget of `specs.md` is met: Lighthouse on a phone (Chrome DevTools, mobile) for one page of each type, the scores written in `roadmap.md`; a score under the budget is fixed before the launch, or accepted by the owner and written in the backlog.
+4. Accessibility beyond the automatic checks: every page used with the keyboard only (a visible focus, the menu and the form reachable), with the system set to reduce motion, and zoomed to 200 %.
+5. The main action works end to end, from the `github.io` preview on a phone: a form sent reaches the owner with the right reply address, a phone link dials, an email link opens with its subject.
+6. The owner verifies the domain in their GitHub account (**Settings → Pages → Verified domains**, a TXT record). The custom domain field of the repository stays empty until the switch: filled earlier, it redirects the `github.io` preview to the old site.
+7. Claude Code checks that every former URL resolves and describes the DNS records to set (GitHub Pages `A` and `AAAA` on the apex, `www` as a CNAME to `<owner>.github.io.`); the owner lowers their TTL a day before, then changes the DNS (never Claude Code).
+8. Once the domain points to GitHub Pages: set the custom domain in the Pages settings, enforce HTTPS, delete the `SITE_URL` and `BASE_PATH` repository variables and run the deployment again, then check that `www` and `github.io` redirect to the domain.
+9. Submit the sitemap to the search engines (Google Search Console, Bing Webmaster Tools) if the owner wants to.
+10. Some weeks after the launch, check the success criteria of `specs.md` that need time (the contact requests, the search ranking in Google Search Console): their results go to the retrospective of the next cycle.
 
 ## Retrospective
 
 At the end of each cycle (the first one ends with the launch), or after any tool that went badly:
 
-1. What took longer than expected? What had to be redone? What did the owner like most?
-2. Sort the backlog: the leftovers and the ideas of the cycle go in, what is done or no longer wanted goes out.
-3. Read Claude Code's memory of the project: a rule or a preference that holds for the whole project moves to `CLAUDE.md` or this file, where the next sessions and the templates find it.
-4. Update this file, and the template (`CLAUDE.md`, `process.md`, the skills, the skeleton) when the lesson applies to every website.
+1. Check the success criteria of `specs.md`, one by one: met, not met (and why), or not measurable yet (and when it will be). A criterion not met becomes a backlog entry, or is dropped on purpose.
+2. Compare the pull requests expected for each step with those it took: what took longer than expected? What had to be redone? What did the owner like most?
+3. Sort the backlog: the leftovers and the ideas of the cycle go in, what is done or no longer wanted goes out.
+4. Read Claude Code's memory of the project: a rule or a preference that holds for the whole project moves to `CLAUDE.md` or this file, where the next sessions and the templates find it.
+5. Update this file, and the template (`CLAUDE.md`, `process.md`, the skills, the skeleton) when the lesson applies to every website: a lesson about the process goes to [Lessons learned](#lessons-learned), a trap of a tool or of the environment to [Known pitfalls](#known-pitfalls).
 
 ## Lessons learned
 
-The lessons of the previous projects:
+The lessons about the process, from the previous projects: each one changed a rule of this file.
 
 | Project | Lesson |
 |---|---|
 | rust-exile-market | Coded mock-ups were never exactly what the owner wanted: start with editable wireframes. |
 | rust-exile-market | Read the terms of use of every data source during the specifications: a forbidden API changes the scope of version 1. |
-| rust-exile-market | A Flatpak browser only receives the opened file: serve the repository with a local server. |
-| rust-exile-market | On a free GitHub account, rulesets only protect public repositories. |
 | rust-exile-market | The owner draws, Claude Code rearranges and completes: the wireframe iterations made the interface personal. |
-| rust-exile-market | The VS Code Excalidraw extension neither autosaves nor reloads a file changed on disk: save, close, reopen. |
 | rust-exile-market | Mock-ups got much better once the layout was settled: one question per phase (layout, then style). |
 | rust-exile-market | Three styles on one page with tabs made the choice easy. |
 | rust-exile-market | One tab group per open decision, removed once decided, turned about a hundred small decisions into quick on-screen comparisons. |
@@ -233,8 +241,18 @@ The lessons of the previous projects:
 | sylent.art | The checks born from a bug (former URLs, page wider than the phone, title on two lines) kept it from coming back. |
 | sylent.art | A worktree outside the folder open in VS Code is invisible to the owner: work on the branch in the main folder while they test nothing there. |
 | sylent.art | Open a pull request only once the owner has seen the result (the review applied, the schema looked at). |
-| sylent.art | Two mock-up servers of two projects on the same port broke the owner's page: one port per project, a server without cache. |
 | sylent.art | The classification of the offers ran as a mini-cycle of its own (specifications, then wireframe and mock-up, then build): the unit of the process is the change, not the project. |
 | sylent.art | Ideas kept only in Claude Code's memory are easily lost between sessions, and some wait on other people: a `backlog.md` holds them, and the roadmap only what is chosen. |
 | stepwise | Twenty fixed boards of fonts couldn't show the combinations: one list per role at the top of the page, applied at once and kept in the address, made the mock-up something the owner tunes themselves. |
 | stepwise | Two series of proposals, one numbered and one lettered, led to a misunderstanding on "the B" and a whole iteration lost: number the proposals once, across every series. |
+
+## Known pitfalls
+
+The traps of the tools and of the environment met on the previous projects, with their fix. They don't change the process; they save a session.
+
+| Project | Pitfall and fix |
+|---|---|
+| rust-exile-market | A Flatpak browser only receives the opened file: serve the repository with a local server. |
+| rust-exile-market | On a free GitHub account, rulesets only protect public repositories. |
+| rust-exile-market | The VS Code Excalidraw extension neither autosaves nor reloads a file changed on disk: save, close, reopen. |
+| sylent.art | Two mock-up servers of two projects on the same port broke the owner's page: one port per project, a server without cache. |

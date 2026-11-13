@@ -131,6 +131,7 @@ Follow [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.
   - `scripts/check-overflow.mjs`: no page is wider than a phone or computer screen, and no element marked `data-one-line` breaks on two lines.
 - The same checks run in CI (`.github/workflows/ci.yml`) on every pull request.
 - When a bug reaches the owner that a check could have caught, add the check in the same pull request as the fix.
+- Before the pull request of a page step, go through the acceptance criteria of the page in `specs.md` on the built site, and say which ones a check covers and which ones the owner must look at; a step is done only when the facts of its **done when** in `process.md` (The tools) hold.
 - Every page has a title, a meta description, a language (`lang="fr"`) and is usable at phone width. Images have an `alt` text and are served in a light format (WebP, or JPEG for the preview card) at the size they are shown.
 - Accessibility: semantic HTML, sufficient contrast (WCAG AA), every action reachable with the keyboard with a visible focus, and nothing that moves when the visitor asked their system to reduce motion.
 - A headless browser renders without the GPU: a color or WebGL bug the owner reports is checked with a small test page of variants, the owner naming the wrong ones.
