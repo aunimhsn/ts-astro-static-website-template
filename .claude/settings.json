@@ -22,5 +22,10 @@
     "anthropic-skills:pptx": "user-invocable-only",
     "anthropic-skills:skill-creator": "user-invocable-only",
     "anthropic-skills:xlsx": "user-invocable-only"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
   }
 }
