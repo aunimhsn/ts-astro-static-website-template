@@ -10,6 +10,13 @@ Remove or add sections as needed.
 
 <!-- What the site is for, why now, and what replaces what (a former site?). -->
 
+## Success criteria
+
+<!-- Two or three facts the owner can check some weeks after the launch, checked one by one at the retrospective. For example:
+- A visitor finds the price of a course in two clicks from the home page.
+- Two contact requests a month come through the form.
+-->
+
 ## Audiences
 
 <!-- Who visits, who decides, what each one must find before acting. -->
@@ -28,7 +35,12 @@ Remove or add sections as needed.
 
 ## Pages
 
-<!-- One subsection per page type: its blocks, in order, what each shows; the layout agreed on the wireframes, then "the mock-up is the reference". -->
+<!-- One subsection per page type: its blocks, in order, what each shows; the layout agreed on the wireframes, then "the mock-up is the reference".
+Then its acceptance criteria: what a visitor must be able to do or find on it, checkable on the preview. For example:
+- At phone width, the contact form is one click away from the home page.
+- The form shows which field is wrong and keeps what was typed.
+They are checked on the preview before the pull request of the page (process.md, Build).
+-->
 
 ## URLs and redirects
 
@@ -57,3 +69,5 @@ The former URLs: kept as pages, redirected (to which page), or dropped; written 
 - The site is static, hosted on GitHub Pages: no server, no server-side redirects.
 - Every page has a title, a meta description, `lang="fr"`, and is usable at phone width.
 - Accessibility: semantic HTML, contrast WCAG AA, keyboard access, reduced motion respected.
+- Budget of a page: <!-- e.g. under 500 KB on the first load; Lighthouse 90 or more on a phone for performance, accessibility and SEO; checked at the launch (process.md, Launch). -->
+- Browsers supported: <!-- e.g. the last two versions of Chrome, Firefox, Safari and Edge, Safari on iOS. -->

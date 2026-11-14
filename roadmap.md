@@ -19,19 +19,19 @@ Read only by the steps that need them:
 ## Steps
 
 <!--
-The usual steps of the first cycle of a site; adapt them at the setup, one line per step done with its pull requests. Each step names the tools it needs (process.md, Size a change). A later cycle adds its steps under a heading of its own (« Cycle 2: testimonials and an English version »), numbered after the last one.
+The usual steps of the first cycle of a site; adapt them at the setup, one line per step done with its pull requests. Each step names the tools it needs (process.md, Size a change) and the number of pull requests expected, e.g. « (specifications, build; 1 pull request expected) ». A later cycle adds its steps under a heading of its own (« Cycle 2: testimonials and an English version »), numbered after the last one.
 -->
 
 ### Cycle 1: the site online
 
 - [ ] **0. Project setup**: the size of the project, the Project section of `CLAUDE.md`, the name of the site, the port of the mock-up server, the repository settings.
-- [ ] **1. Specifications and structure**: audiences, value proposition, brand assets, external services; the content tree in Excalidraw, the URLs and redirects.
+- [ ] **1. Specifications and structure**: audiences, value proposition, success criteria, acceptance criteria per page type, page budget, brand assets, external services; the content tree in Excalidraw, the URLs and redirects.
 - [ ] **2. Wireframes**: one Excalidraw wireframe per page type, phone first.
 - [ ] **3. Mock-up**: 3 or 4 styles, then every page of the first release in `docs/mockups/`, checked on the owner's phone; decisions in `docs/branding.md`.
 - [ ] **4. Design system**: the tokens in `docs/branding.md`, the mock-up rewritten to use only them, an entry in `design-journal.md`.
 - [ ] **5. Skeleton and deployment**: the tokens and fonts of the mock-up in `src/styles/`, the brand assets (`npm run brand:images`), the header and footer, the deployment to the `github.io` preview.
 - [ ] **6. Pages**: one step per page type, as specified.
-- [ ] **7. Launch**: the site checked on the preview, the DNS switched by the owner, the custom domain and HTTPS.
-- [ ] **8. Retrospective**: the lessons in `process.md` (and in the template when they apply to every website), the backlog sorted, the memory moved to the files.
+- [ ] **7. Launch**: the site checked on the preview (Lighthouse scores, keyboard pass, main action end to end), the DNS switched by the owner, the custom domain and HTTPS.
+- [ ] **8. Retrospective**: the success criteria checked, the lessons in `process.md` (and in the template when they apply to every website), the backlog sorted, the memory moved to the files.
 
 The steps may be split into sub-steps when a pull request grows too large. When no step is left, Claude Code proposes the next items of the backlog to the owner.
