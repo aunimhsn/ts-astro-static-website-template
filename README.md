@@ -1,6 +1,6 @@
-# astro-static-website-template
+# ts-astro-static-website-template
 
-Template for static brand websites built with [Astro](https://astro.build/) and hosted on GitHub Pages, with the project conventions, the process from an idea to a site online, and the Claude Code setup. First used for [sylent.art](https://github.com/aunimhsn/sylent.art).
+Template for static brand websites built with [Astro](https://astro.build/) and hosted on GitHub Pages, with the project conventions, the process from an idea to a site online, and the Claude Code setup. First used for [sylent.art](https://github.com/sylent-dev/sylent.art).
 
 ![The process: the backlog feeds the roadmap; each change goes through the tools it needs to a pull request; a cycle ends with the launch and the retrospective.](docs/process-light.svg)
 
@@ -31,7 +31,7 @@ Template for static brand websites built with [Astro](https://astro.build/) and 
 1. Create the repository from this template, with the **Use this template** button or:
 
    ```sh
-   gh repo create <name> --template aunimhsn/astro-static-website-template --public --clone
+   gh repo create <name> --template sylent-dev/ts-astro-static-website-template --public --clone
    ```
 
    On a free account, the repository must be public for GitHub Pages and for the rulesets.
